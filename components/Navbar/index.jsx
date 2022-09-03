@@ -68,7 +68,7 @@ function Navbar({ cart, auth }) {
             Sign Out
           </p>
         ) : (
-          <Link href="/sign-up">
+          <Link href="userAuth/sign-up">
             <a className="inline-flex items-center bg-orange-800 text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
               Login
               <svg
