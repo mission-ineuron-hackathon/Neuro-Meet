@@ -8,8 +8,10 @@ const nextConfig = {
     FB_PROJECTID: "project-hackathon-ebcfa",
     FB_STORAGEBUCKET: "project-hackathon-ebcfa.appspot.com",
     FB_MSS_SENDERID: "617664718510",
-    FB_APPID: "1:617664718510:web:9fd4896fdf2e8502ed6f3f"
+    FB_APPID: "1:617664718510:web:9fd4896fdf2e8502ed6f3f",
+    DATABASE_URL: "https://project-hackathon-ebcfa-default-rtdb.firebaseio.com"
   }
 }
 
 module.exports = nextConfig
+
