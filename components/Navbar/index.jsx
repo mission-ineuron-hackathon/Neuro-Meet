@@ -33,17 +33,21 @@ function Navbar({ cart, auth }) {
   const stateObj = getLoginState(auth);
   useEffect(() => {
     setIsLoggedIn(stateObj.signIn);
-    setUserdata({
-      username: stateObj.displayName,
-      email: stateObj.email,
-      profile_picture: stateObj.photoURL,
-      uid: stateObj.uid,
-      isAdmin: false,
-    }),
-    console.log(data);
+
+      if (stateObj.signIn) {
+        setUserdata({
+          username: stateObj.user.displayName,
+          email: stateObj.user.email,
+          profile_picture: stateObj.user.photoURL,
+          uid: stateObj.user.uid,
+          isAdmin: false,
+        })
+      }
+
   }, [stateObj]);
-  // console.log("user state" ,stateObj);
-  
+
+  console.log("user state" ,stateObj);
+  console.log("reduxData: ", data);
 
 
   return (
@@ -84,13 +88,13 @@ function Navbar({ cart, auth }) {
         </nav>
         {isLoggedIn ? (
           <p
-            onClick={handleSignOut}
+            onClick={() => {handleSignOut(), setUserdata({})}}
             className="cursor-pointer inline-flex items-center bg-orange-800 text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"
           >
             Sign Out
           </p>
         ) : (
-          <Link href="userAuth/sign-up">
+          <Link href="http://localhost:3000/userAuth/sign-in">
             <a className="inline-flex items-center bg-orange-800 text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
               Login
               <svg
