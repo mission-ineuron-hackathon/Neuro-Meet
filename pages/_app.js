@@ -5,6 +5,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useState } from 'react';
+import { Provider } from "react-redux";
+import { store } from "./../state/store";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -44,12 +46,13 @@ const auth = getAuth();
 
 function MyApp({ Component, pageProps }) {
   return(
-    <>
+    <><Provider store={store}>
       <Navbar auth={auth} />
       <div className="max-w-[1250px] mx-auto">
         <Component db={db} auth={auth} {...pageProps} />
       </div>
       <Footer/>
+      </Provider>
     </>
   );
 }

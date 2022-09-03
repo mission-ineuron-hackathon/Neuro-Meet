@@ -3,9 +3,22 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWith
 import { getDatabase, ref, onValue,child, get, set, push, update } from "firebase/database";
 import { useRouter } from "next/router";
 import Link from "next/link";
+
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "./../../state/index";
+
 // import { getAuth } from "firebase/auth"
 
 function SignUp({auth}) {
+
+
+  const data = useSelector((state) => state.newTicketData);
+  const dispatch = useDispatch();
+  const { setUserdata } = bindActionCreators(actionCreators, dispatch);
+
+
+
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -69,7 +82,8 @@ function SignUp({auth}) {
             // console.log("Credential: ", credential);
             // console.log("Token: ", token);
             console.log("User: ", user);
-
+            console.log(data);
+            
 
             try {
               const db = getDatabase();
@@ -77,15 +91,21 @@ function SignUp({auth}) {
               username: user.displayName,
               email: user.email,
               profile_picture: user.photoURL,
-              uid: user.uid
+              uid: user.uid,
+              isAdmin: false,
             });
+
+            setUserdata({
+              username: user.displayName,
+              email: user.email,
+              profile_picture: user.photoURL,
+              uid: user.uid,
+              isAdmin: false,
+            })
+
             } catch (error) {
               console.log(error);
             }
-
-            
-            
-
             router.push("/")
 
 
