@@ -5,6 +5,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useState } from 'react';
+import { getDatabase } from 'firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,7 +22,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // init services
-const db = getFirestore(app)
+// const db = getFirestore(app)
+const db = getDatabase();
 
 // init auth
 const auth = getAuth();

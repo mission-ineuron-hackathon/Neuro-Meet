@@ -26,32 +26,32 @@ function SignUp({auth}) {
 
   // useEffect(())
 
-  const handleSingUp = async (e) => {
-    e.preventDefault();
-    // console.log("email:", formInputs.email);
-    // console.log("password:", formInputs.password);
+  // const handleSingUp = async (e) => {
+  //   e.preventDefault();
+  //   // console.log("email:", formInputs.email);
+  //   // console.log("password:", formInputs.password);
 
-    try {
-        buttonText.current.innerHTML =  "loading..."
-        errorMsg.current.innerHTML = ""
-        const userCred = await createUserWithEmailAndPassword(auth, formInputs.email, formInputs.password)
-        const user = userCred.user
+  //   try {
+  //       buttonText.current.innerHTML =  "loading..."
+  //       errorMsg.current.innerHTML = ""
+  //       const userCred = await createUserWithEmailAndPassword(auth, formInputs.email, formInputs.password)
+  //       const user = userCred.user
 
-        window.alert("User signed in successfully")
+  //       window.alert("User signed in successfully")
 
-        console.log("Created User: ", user);
+  //       console.log("Created User: ", user);
 
-        buttonText.current.innerHTML =  "Sign Up"
-        router.push("/")
+  //       buttonText.current.innerHTML =  "Sign Up"
+  //       router.push("/")
 
-    } catch (error) {
-        buttonText.current.innerHTML =  "Sign Up"
-        if(error.code.includes("email-already-in-use")){
-          errorMsg.current.innerHTML = "User already registered. Kindly login."
-        }
-        console.log("Something wrong in signup request \n", error.code);
-    }
-  };
+  //   } catch (error) {
+  //       buttonText.current.innerHTML =  "Sign Up"
+  //       if(error.code.includes("email-already-in-use")){
+  //         errorMsg.current.innerHTML = "User already registered. Kindly login."
+  //       }
+  //       console.log("Something wrong in signup request \n", error.code);
+  //   }
+  // };
 
   // To handle Ooth sign ups / sign-in s
   const handleOothSignUp = (e) => {
@@ -77,7 +77,8 @@ function SignUp({auth}) {
               username: user.displayName,
               email: user.email,
               profile_picture: user.photoURL,
-              uid: user.uid
+              uid: user.uid,
+              isAdmin: false
             });
             } catch (error) {
               console.log(error);
@@ -114,7 +115,6 @@ function SignUp({auth}) {
             />
           </div>
           <div className="md:w-8/12 lg:w-5/12 lg:ml-20">
-            <form onSubmit={handleSingUp}>
               <div
                 className="px-7 py-3 text-blue-500 border border-blue-500 font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center cursor-pointer"
                 style={{ backgroundColor: "#fff" }}
@@ -124,7 +124,6 @@ function SignUp({auth}) {
                 <img src="/assets/googleLogo.jpg" alt="logo" height="40" width="40" />
                 Continue with Google
               </div>
-            </form>
           </div>
         </div>
       </div>
