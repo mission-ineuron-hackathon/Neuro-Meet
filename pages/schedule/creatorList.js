@@ -25,25 +25,25 @@ const Events = () => {
         const getData = await get(child(ref(getDatabase()), `users/`));
         var admins = [];
         Object.keys(getData.val()).map((key) => {
-          console.log(getData.val()[key].username);
+          //console.log(getData.val()[key].username);
 
           getData.val()[key].isAdmin
             ? admins.push(getData.val()[key])
-            : console.log("Not Admin");
+            : //console.log("Not Admin");
         });
-        // console.log(getData.val());
+        // //console.log(getData.val());
         var users = getData.val();
-        console.log(users);
-        console.log(admins);
+        //console.log(users);
+        //console.log(admins);
         setAllAdmins(admins);
       } catch (error) {
-        console.log("====================================");
-        console.log("error:", error);
-        console.log("====================================");
+        //console.log("====================================");
+        //console.log("error:", error);
+        //console.log("====================================");
       }
     };
     fetchAdmins();
-    console.log("admins: ", allAdmins);
+    //console.log("admins: ", allAdmins);
   }, []);
 
   return (

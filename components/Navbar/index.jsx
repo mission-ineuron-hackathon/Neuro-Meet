@@ -24,7 +24,7 @@ function Navbar({ cart, auth }) {
         window.alert("Sign-out successful.");
       })
       .catch((error) => {
-        console.log("some error in signout");
+        //console.log("some error in signout");
       });
   };
 
@@ -46,8 +46,8 @@ function Navbar({ cart, auth }) {
 
   }, [stateObj]);
 
-  console.log("user state" ,stateObj);
-  console.log("reduxData: ", data);
+  //console.log("user state" ,stateObj);
+  //console.log("reduxData: ", data);
 
 
   return (

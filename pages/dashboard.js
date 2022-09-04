@@ -26,7 +26,7 @@ const UserDetails = () => {
 
   const db = getDatabase();
 
-  console.log("data:", data);
+  //console.log("data:", data);
 
   const [userSchedules, setUserSchedules] = useState([]);
   const [desc, setDesc] = useState("");
@@ -34,20 +34,18 @@ const UserDetails = () => {
   const fetchData = async () => {
     try {
       const getData = await get(child(ref(getDatabase()), `users/${data.uid}`));
-      const schedules = await getData.val().schedules
-      
-      console.log("getData:", schedules);
-      setUserSchedules(schedules)
-      setDesc(getData.val().description)
+      const schedules = await getData.val().schedules;
+
+      //console.log("getData:", schedules);
+      setUserSchedules(schedules);
+      setDesc(getData.val().description);
     } catch (error) {
-      console.log("error:", error);
+      //console.log("error:", error);
     }
   };
   useEffect(() => {
     fetchData();
-  },[data.uid])
-
-
+  }, [data.uid]);
 
   return (
     <div className="h-[82vh] bg-[#cfb1de] rounded-xl mt-[20px] flex flex-col justify-around items-center">
@@ -72,35 +70,92 @@ const UserDetails = () => {
           <div className="w-[40%] h-[100%]">
             <div>
               <p>Description</p>
-              <p className="text-[#8037A9]">
-                {desc}{" "}
-              </p>
+              <p className="text-[#8037A9]">{desc} </p>
             </div>
           </div>
         </div>
       </div>
       <div className="w-[90%] h-[40%] ">
-        <p>Upcoming Meetings</p>
+        
         <div className="w-[100%] h-[100%] flex justify-between ">
+        
           <div className="w-[50%] h-[100%] bg-[#FFFF] py-2  justify-start items-center overflow-auto border-8">
-            {userSchedules?.map(function (item, index) {
-                console.log("item:", item);
-              return (
-                <>
-                  <div className="w-[97%] h-12 bg-[#CFB1DE] flex  justify-around items-center mb-2 mx-auto">
-                    <div className="flex justify-center items-center gap-6">
-                      <p>{item.start}</p>
-                      <p>{item.end}</p>
-                    </div>
-                    <p>{item.meetID}</p>
-                  </div>
-                </>
-              );
-            })}
+          <p>Upcoming Meetings</p>
+            {
+              // userSchedules?.map(function (item, index) {
+              //     //console.log("item:", item);
+              //
+              // })
+
+              userSchedules &&
+                Object.entries(userSchedules).map((item, index) => {
+                  //console.log("item:", item[1]);
+                  return (
+                    <>
+                      <div
+                        key={index}
+                        className="w-[97%] h-12 bg-[#CFB1DE] flex  justify-around items-center mb-2 mx-auto text-sm"
+                      >
+                        <div className="flex justify-center items-center gap-6 font-medium text-xs">
+                          <p>{item[1].time}</p>
+                          {/* <p>{item[1]}</p> */}
+                        </div>
+                        <p className="font-medium border-l-2 pl-2">
+                          {item[1].with}
+                        </p>
+                      </div>
+                    </>
+                  );
+                })
+            }
           </div>
-         <div>
-              <div className="bg-[#30a58e] py-3 px-6 rounded cursor-pointer" onClick={()=>{window.location.href="http://localhost:3000/schedule/creatorList"}}>New Meeting</div>
-         </div>
+
+          {data.isAdmin ? (
+            (
+              <div className="w-[50%] h-[100%] bg-[#FFFF] py-2  justify-start items-center overflow-auto border-8">
+                <p>Requested Meetings</p>
+            {
+              // userSchedules?.map(function (item, index) {
+              //     //console.log("item:", item);
+              //
+              // })
+
+              userSchedules &&
+                Object.entries(userSchedules).map((item, index) => {
+                  //console.log("item:", item[1]);
+                  return (
+                    <>
+                      <div
+                        key={index}
+                        className="w-[97%] h-12 bg-[#CFB1DE] flex  justify-around items-center mb-2 mx-auto text-sm"
+                      >
+                        <div className="flex justify-center items-center gap-6 font-medium text-xs">
+                          <p>{item[1].time}</p>
+                          {/* <p>{item[1]}</p> */}
+                        </div>
+                        <p className="font-medium border-l-2 pl-2">
+                          {item[1].with}
+                        </p>
+                      </div>
+                    </>
+                  );
+                })
+            }
+          </div>
+            )
+          ) : (
+            <div>
+              <div
+                className="bg-[#30a58e] py-3 px-6 rounded cursor-pointer"
+                onClick={() => {
+                  window.location.href =
+                    "http://localhost:3000/schedule/creatorList";
+                }}
+              >
+                New Meeting
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

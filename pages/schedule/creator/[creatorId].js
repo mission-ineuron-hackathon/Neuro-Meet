@@ -9,11 +9,11 @@ import SlotAllocationModal from "./allocateSlot"
 const creater = ({userData}) => {
   // get(child(ref(getDatabase()), `users/`)).then(snapshot => {
   //   const data = snapshot.val();
-  //   console.log("data:", Object.entries(data));
+  //   //console.log("data:", Object.entries(data));
   // }).catch(err => {
-  //   console.log(err);
+  //   //console.log(err);
   // })
-  console.log("specipic user data: ", userData);
+  //console.log("specipic user data: ", userData);
     return (
       // <>
       // specific user
@@ -46,7 +46,7 @@ const creater = ({userData}) => {
                   </p>
                 </div>
                 <div>
-                <SlotAllocationModal timeSlots={userData.adminSlot.timeSlot}/>
+                <SlotAllocationModal timeSlots={userData.adminSlot.timeSlot} adminUid={userData.uid} email={userData.email} />
                 </div>
               </div>
             </div>
@@ -63,9 +63,9 @@ export default creater
 
 
 export async function getStaticProps({params}) {
-  console.log("params id",params.creatorId);
+  //console.log("params id",params.creatorId);
   const userId = params.creatorId.split('-')[1]
-  console.log("user id :", userId);
+  //console.log("user id :", userId);
   const getUserData = await get(child(ref(getDatabase()), `users/${userId}`))
   return{
     props:{
@@ -86,7 +86,7 @@ export async function getStaticPaths() {
       }
     }
   })
-  console.log("paths: ", paths);
+  //console.log("paths: ", paths);
 
   return{
     paths,
