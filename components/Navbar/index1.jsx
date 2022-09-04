@@ -12,7 +12,7 @@ function Navbar({ cart, auth }) {
         window.alert("Sign-out successful.");
       })
       .catch((error) => {
-        console.log("some error in signout");
+        //console.log("some error in signout");
       });
   };
 
@@ -22,7 +22,7 @@ function Navbar({ cart, auth }) {
   useEffect(() => {
     setIsLoggedIn(stateObj.signIn);
   }, [stateObj]);
-  // console.log("user state" ,stateObj);
+  // //console.log("user state" ,stateObj);
 
   return (
     <header className="text-gray-400 body-font shadow-lg">

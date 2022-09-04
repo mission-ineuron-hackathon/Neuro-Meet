@@ -51,8 +51,8 @@ function SignUp({ auth }) {
 
   const handleSingUp = async (e) => {
     e.preventDefault();
-    // console.log("email:", formInputs.email);
-    // console.log("password:", formInputs.password);
+    // //console.log("email:", formInputs.email);
+    // //console.log("password:", formInputs.password);
 
     try {
       buttonText.current.innerHTML = "loading...";
@@ -66,7 +66,7 @@ function SignUp({ auth }) {
 
       window.alert("User signed in successfully");
 
-      console.log("Created User: ", user);
+      //console.log("Created User: ", user);
 
       buttonText.current.innerHTML = "Sign Up";
       router.push("http://localho/dashboardst:");
@@ -75,7 +75,7 @@ function SignUp({ auth }) {
       if (error.code.includes("email-already-in-use")) {
         errorMsg.current.innerHTML = "User already registered. Kindly login.";
       }
-      console.log("Something wrong in signup request \n", error.code);
+      //console.log("Something wrong in signup request \n", error.code);
     }
   };
 
@@ -92,13 +92,13 @@ function SignUp({ auth }) {
         // The signed-in user info.
         const user = result.user;
 
-        console.log("User: ", user);
-        console.log(data);
+        //console.log("User: ", user);
+        //console.log(data);
 
         get(child(ref(getDatabase()), `users/${user.uid}`))
           .then((snapshot) => {
             if (snapshot.exists()) {
-              console.log(snapshot.val());
+              //console.log(snapshot.val());
               const userFromRdb = snapshot.val();
               setUserdata({
                 username: userFromRdb.username,
@@ -132,17 +132,16 @@ function SignUp({ auth }) {
                   uid: user.uid,
                   schedules: [
                     { meetId: "", start: "", end: "" },
-                    { meetId: "", start: "", end: "" },
                   ],
                   isAdmin: false,
                 });
               } catch (error) {
-                console.log(error);
+                //console.log(error);
               }
             }
           })
           .catch((error) => {
-            console.error(error);
+            //console.error(error);
           });
 
         router.push("http://localhost:3000/dashboard");
@@ -156,7 +155,7 @@ function SignUp({ auth }) {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
-        console.log("error in Ooth", errorCode, " ", errorMessage);
+        //console.log("error in Ooth", errorCode, " ", errorMessage);
       });
   };
 
