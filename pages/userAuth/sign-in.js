@@ -69,7 +69,7 @@ function SignUp({ auth }) {
       console.log("Created User: ", user);
 
       buttonText.current.innerHTML = "Sign Up";
-      router.push("/");
+      router.push("http://localho/dashboardst:");
     } catch (error) {
       buttonText.current.innerHTML = "Sign Up";
       if (error.code.includes("email-already-in-use")) {
@@ -92,56 +92,60 @@ function SignUp({ auth }) {
         // The signed-in user info.
         const user = result.user;
 
-        // console.log("Credential: ", credential);
-        // console.log("Token: ", token);
         console.log("User: ", user);
         console.log(data);
 
-        // if user is registering
-        // console.log("signIn? ===================>", result.operationType);
-
-        
         get(child(ref(getDatabase()), `users/${user.uid}`))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            console.log(snapshot.val());
-            const userFromRdb = snapshot.val();
-            setUserdata({
-              username: userFromRdb.username,
-              email: userFromRdb.email,
-              profile_picture: userFromRdb.profile_picture,
-              uid: userFromRdb.uid,
-              isAdmin: userFromRdb.isAdmin,
-            });
-          } else {
-            try {
-              const db = getDatabase();
-              set(ref(db, "users/" + user.uid), {
-                username: user.displayName,
-                email: user.email,
-                profile_picture: user.photoURL,
-                uid: user.uid,
-                isAdmin: false,
-              });
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              console.log(snapshot.val());
+              const userFromRdb = snapshot.val();
               setUserdata({
-                username: user.displayName,
-                email: user.email,
-                profile_picture: user.photoURL,
-                uid: user.uid,
-                isAdmin: false,
+                username: userFromRdb.username,
+                description: userFromRdb.description,
+                email: userFromRdb.email,
+                profile_picture: userFromRdb.profile_picture,
+                uid: userFromRdb.uid,
+                isAdmin: userFromRdb.isAdmin,
+                schedules: userFromRdb.schedules,
               });
-            } catch (error) {
-              console.log(error);
+            } else {
+              try {
+                const db = getDatabase();
+                set(ref(db, "users/" + user.uid), {
+                  username: user.displayName,
+                  description:"I am a new user",
+                  email: user.email,
+                  profile_picture: user.photoURL,
+                  uid: user.uid,
+                  schedules: [
+                    { meetId: "", start: "", end: "" },
+                    { meetId: "", start: "", end: "" },
+                  ],
+                  isAdmin: false,
+                });
+                setUserdata({
+                  username: user.displayName,
+                  description:"I am a new user",
+                  email: user.email,
+                  profile_picture: user.photoURL,
+                  uid: user.uid,
+                  schedules: [
+                    { meetId: "", start: "", end: "" },
+                    { meetId: "", start: "", end: "" },
+                  ],
+                  isAdmin: false,
+                });
+              } catch (error) {
+                console.log(error);
+              }
             }
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
 
-
-
-        router.push("/");
+        router.push("http://localhost:3000/dashboard");
       })
       .catch((error) => {
         // Handle Errors here.

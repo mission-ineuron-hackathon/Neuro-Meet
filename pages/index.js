@@ -24,15 +24,15 @@ export default function Home() {
                 truffaut hexagon try-hard chambray.
               </p>
               <div className="flex justify-center">
-                <Link href="/products">
+                <Link href="/dashboard">
                 <a>
                 <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                  Products
+                  Dashboard
                 </button>
                 </a>
                 </Link>
                 <button className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">
-                  Login
+                  New meet
                 </button>
               </div>
             </div>
@@ -41,7 +41,7 @@ export default function Home() {
                 // layout="fill"
                 className="object-cover object-center rounded"
                 alt="hero"
-                src="/assets/shopLogo.png"
+                src="/assets/logo.png"
               />
             </div>
           </div>

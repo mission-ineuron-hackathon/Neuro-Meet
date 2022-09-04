@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  images: {
+    domains: ["firebasestorage.googleapis.com", "lh3.googleusercontent.com"],
+  },
   env:{
     FB_APIKEY: "AIzaSyB5jNTcDJcVcvsg6K7PCkSW9cCC6BZd9vM",
     FB_AUTHDOMAIN: "project-hackathon-ebcfa.firebaseapp.com",

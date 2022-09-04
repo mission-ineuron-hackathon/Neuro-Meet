@@ -52,17 +52,17 @@ function Navbar({ cart, auth }) {
 
   return (
     <header className="text-gray-400 bg-orange-100 body-font shadow-lg">
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+     <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <Link href="/">
           <a className="flex title-font font-medium items-center text-black mb-4 md:mb-0">
             <Image
-              src={`/assets/shopLogo.png`}
+              src={`/assets/neuroMeetLogo.svg`}
               alt="logo"
-              height="30"
-              width="30"
+              height="50"
+              width="200"
               className="text-white p-2 rounded-full"
             />
-            <span className="ml-3 text-xl">My Ecommerce</span>
+            
           </a>
         </Link>
         <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700 flex flex-wrap items-center text-base justify-center">
@@ -88,13 +88,13 @@ function Navbar({ cart, auth }) {
         </nav>
         {isLoggedIn ? (
           <p
-            onClick={() => {handleSignOut(), setUserdata({})}}
+            onClick={handleSignOut}
             className="cursor-pointer inline-flex items-center bg-orange-800 text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"
           >
             Sign Out
           </p>
         ) : (
-          <Link href="http://localhost:3000/userAuth/sign-in">
+          <Link href="http://localhost:3000//userAuth/sign-in">
             <a className="inline-flex items-center bg-orange-800 text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
               Login
               <svg
