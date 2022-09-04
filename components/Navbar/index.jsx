@@ -72,19 +72,9 @@ function Navbar({ cart, auth }) {
           <Link href="/about">
             <a className="mr-5 hover:text-textColor">About</a>
           </Link>
-          <Link href="/products">
-            <a className="mr-5 hover:text-textColor">Products</a>
-          </Link>
           <Link href="/contact_us">
             <a className="mr-5 hover:text-textColor">Contact Us</a>
           </Link>
-          {isLoggedIn && (
-            <Link href="/cart">
-              <a className="mr-5 hover:text-textColor">
-                Cart[{cart ? cart.length : 0}]
-              </a>
-            </Link>
-          )}
         </nav>
         {isLoggedIn ? (
           <p
@@ -94,7 +84,7 @@ function Navbar({ cart, auth }) {
             Sign Out
           </p>
         ) : (
-          <Link href="http://localhost:3000//userAuth/sign-in">
+          <Link href="http://localhost:3000/userAuth/sign-in">
             <a className="inline-flex items-center bg-orange-800 text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
               Login
               <svg
