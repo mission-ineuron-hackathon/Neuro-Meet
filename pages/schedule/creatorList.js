@@ -27,9 +27,8 @@ const Events = () => {
         Object.keys(getData.val()).map((key) => {
           //console.log(getData.val()[key].username);
 
-          getData.val()[key].isAdmin
-            ? admins.push(getData.val()[key])
-            : //console.log("Not Admin");
+          getData.val()[key].isAdmin && admins.push(getData.val()[key])
+             //console.log("Not Admin");
         });
         // //console.log(getData.val());
         var users = getData.val();

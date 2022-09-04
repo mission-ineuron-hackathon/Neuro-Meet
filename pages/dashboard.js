@@ -29,6 +29,7 @@ const UserDetails = () => {
   //console.log("data:", data);
 
   const [userSchedules, setUserSchedules] = useState([]);
+  // const [isAdmin, setAdmin] = useState(false)
   const [desc, setDesc] = useState("");
 
   const fetchData = async () => {
@@ -40,7 +41,7 @@ const UserDetails = () => {
       setUserSchedules(schedules);
       setDesc(getData.val().description);
     } catch (error) {
-      //console.log("error:", error);
+      console.log("error:", error);
     }
   };
   useEffect(() => {
@@ -81,13 +82,7 @@ const UserDetails = () => {
         
           <div className="w-[50%] h-[100%] bg-[#FFFF] py-2  justify-start items-center overflow-auto border-8">
           <p>Upcoming Meetings</p>
-            {
-              // userSchedules?.map(function (item, index) {
-              //     //console.log("item:", item);
-              //
-              // })
-
-              userSchedules &&
+            {userSchedules &&
                 Object.entries(userSchedules).map((item, index) => {
                   //console.log("item:", item[1]);
                   return (
@@ -115,31 +110,26 @@ const UserDetails = () => {
               <div className="w-[50%] h-[100%] bg-[#FFFF] py-2  justify-start items-center overflow-auto border-8">
                 <p>Requested Meetings</p>
             {
-              // userSchedules?.map(function (item, index) {
-              //     //console.log("item:", item);
-              //
-              // })
-
-              userSchedules &&
-                Object.entries(userSchedules).map((item, index) => {
-                  //console.log("item:", item[1]);
-                  return (
-                    <>
+             Object.entries(data.adminSlot.pendingReq)?.map(function (item, index) {
+                  //console.log("item:", item);
+                return(
+                  <>
                       <div
                         key={index}
                         className="w-[97%] h-12 bg-[#CFB1DE] flex  justify-around items-center mb-2 mx-auto text-sm"
                       >
                         <div className="flex justify-center items-center gap-6 font-medium text-xs">
-                          <p>{item[1].time}</p>
+                          <p>{item[1].email}</p>
                           {/* <p>{item[1]}</p> */}
                         </div>
                         <p className="font-medium border-l-2 pl-2">
-                          {item[1].with}
+                          {item[1].time}
                         </p>
                       </div>
                     </>
-                  );
-                })
+                )
+              })
+
             }
           </div>
             )

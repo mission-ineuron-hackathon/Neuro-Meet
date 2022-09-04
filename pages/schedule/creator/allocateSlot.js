@@ -66,6 +66,7 @@ function App(data) {
         with: data.email,
         meetId: null
     });
+    window.alert(`your meeting request is sent to Admin`)
   }
 
 
