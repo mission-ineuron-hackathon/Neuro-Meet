@@ -1,12 +1,48 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import greentick from "./../../public/assets/greentick.svg";
 import Image from "next/dist/client/image";
 import profilePic from "./../../public/assets/profile.jpeg";
 import ad from "./../../public/assets/arrowDown.svg";
-const events = () => {
+import {
+  getDatabase,
+  ref,
+  onValue,
+  child,
+  get,
+  set,
+  push,
+  update,
+} from "firebase/database";
+import { async } from "@firebase/util";
 
+const Events = () => {
 
+  const [allAdmins, setAllAdmins] = useState()
+  
+  useEffect(() => {
+    const fetchAdmins = async() => {
+      try {
+        const getData = await get(child(ref(getDatabase()), `users/`))
+        var admins = []
+            Object.keys(getData.val()).map((key) => {
+        console.log(getData.val()[key].username);
 
+        getData.val()[key].isAdmin ? admins.push(getData.val()[key]) : console.log("Not Admin");
+      });
+      // console.log(getData.val());
+      var users = getData.val();
+      console.log(users);
+      console.log(admins);
+        setAllAdmins(admins)
+      } catch (error) {
+        console.log('====================================');
+        console.log("error:", error);
+        console.log('====================================');
+      }
+    }
+    fetchAdmins()
+    console.log("admins: ", allAdmins);
+  },[])
 
 
   
@@ -47,91 +83,29 @@ const events = () => {
                   More <Image width={10} src={ad} />
                 </div>
               </div>
-              <div className="bg-[#c8c8c8] w-[98%] text-[#0b0a0a] flex flex-col h-[100%] overflow-auto">
-                <div className=" grid grid-cols-6  items-center text-center  bg-slate-400">
-                  <div>01</div>
+              <div className="bg-[#c8c8c8] w-[98%] text-[#0b0a0a] flex flex-col h-[100%] overflow-auto text-sm p-1">
+                {allAdmins && allAdmins.map((admin, index) => {
+                  return (
+                    <>
+                    
+                  <div className=" grid grid-cols-6  items-center text-center  bg-slate-400">
+                  <div>{index + 1}</div>
                   <div className="flex justify-center gap-[20px] items-center">
-                    <Image width={50} height={50} src={profilePic} />
-                    Joker
+                    <Image width={50} height={50} src={admin.profile_picture} />
+                    {admin.username}
                   </div>
-                  <div>28 May 2021</div>
-                  <div>MCR Delhi</div>
+                  <div>{admin.email}</div>
+                  <div>Check Availability</div>
                   <div>
                     <Image width={50} height={50} src={greentick} />
                   </div>
                   <div>. . .</div>
                 </div>
-                <hr className="my-[10px]" />
-                <div className=" grid grid-cols-6  items-center text-center  bg-slate-400">
-                  <div>01</div>
-                  <div className="flex justify-center gap-[20px] items-center">
-                    <Image width={50} height={50} src={profilePic} />
-                    Joker
-                  </div>
-                  <div>28 May 2021</div>
-                  <div>MCR Delhi</div>
-                  <div>
-                    <Image width={50} height={50} src={greentick} />
-                  </div>
-                  <div>. . .</div>
-                </div>
-                <hr className="my-[10px]" />
-                <div className=" grid grid-cols-6  items-center text-center  bg-slate-400">
-                  <div>01</div>
-                  <div className="flex justify-center gap-[20px] items-center">
-                    <Image width={50} height={50} src={profilePic} />
-                    Joker
-                  </div>
-                  <div>28 May 2021</div>
-                  <div>MCR Delhi</div>
-                  <div>
-                    <Image width={50} height={50} src={greentick} />
-                  </div>
-                  <div>. . .</div>
-                </div>
-                <hr className="my-[10px]" />
-                <div className=" grid grid-cols-6  items-center text-center  bg-slate-400">
-                  <div>01</div>
-                  <div className="flex justify-center gap-[20px] items-center">
-                    <Image width={50} height={50} src={profilePic} />
-                    Joker
-                  </div>
-                  <div>28 May 2021</div>
-                  <div>MCR Delhi</div>
-                  <div>
-                    <Image width={50} height={50} src={greentick} />
-                  </div>
-                  <div>. . .</div>
-                </div>
-                <hr className="my-[10px]" />
-                <div className=" grid grid-cols-6  items-center text-center  bg-slate-400">
-                  <div>01</div>
-                  <div className="flex justify-center gap-[20px] items-center">
-                    <Image width={50} height={50} src={profilePic} />
-                    Joker
-                  </div>
-                  <div>28 May 2021</div>
-                  <div>MCR Delhi</div>
-                  <div>
-                    <Image width={50} height={50} src={greentick} />
-                  </div>
-                  <div>. . .</div>
-                </div>
-                <hr className="my-[10px]" />
-                <div className=" grid grid-cols-6  items-center text-center  bg-slate-400">
-                  <div>01</div>
-                  <div className="flex justify-center gap-[20px] items-center">
-                    <Image width={50} height={50} src={profilePic} />
-                    Joker
-                  </div>
-                  <div>28 May 2021</div>
-                  <div>MCR Delhi</div>
-                  <div>
-                    <Image width={50} height={50} src={greentick} />
-                  </div>
-                  <div>. . .</div>
-                </div>
-                <hr className="my-[10px]" />
+                </>)
+                })}
+                
+                
+                
               </div>
             </div>
           </div>
@@ -141,4 +115,4 @@ const events = () => {
   );
 };
 
-export default events;
+export default Events;
