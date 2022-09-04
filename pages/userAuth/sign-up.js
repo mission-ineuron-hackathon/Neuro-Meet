@@ -3,9 +3,22 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWith
 import { getDatabase, ref, onValue,child, get, set, push, update } from "firebase/database";
 import { useRouter } from "next/router";
 import Link from "next/link";
+
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "./../../state/index";
+
 // import { getAuth } from "firebase/auth"
 
 function SignUp({auth}) {
+
+
+  const data = useSelector((state) => state.newTicketData);
+  const dispatch = useDispatch();
+  const { setUserdata } = bindActionCreators(actionCreators, dispatch);
+
+
+
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -68,25 +81,34 @@ function SignUp({auth}) {
             
             // console.log("Credential: ", credential);
             // console.log("Token: ", token);
+            console.log("result: ", result);
             console.log("User: ", user);
-
-
-            try {
-              const db = getDatabase();
-              set(ref(db, 'users/' + user.uid ), {
-              username: user.displayName,
-              email: user.email,
-              profile_picture: user.photoURL,
-              uid: user.uid,
-              isAdmin: false
-            });
-            } catch (error) {
-              console.log(error);
+            console.log(data);
+            
+            if(!result.operationType == 'signIn')
+            {
+              try {
+                const db = getDatabase();
+                set(ref(db, 'users/' + user.uid ), {
+                username: user.displayName,
+                email: user.email,
+                profile_picture: user.photoURL,
+                uid: user.uid,
+                isAdmin: false
+              });
+  
+              setUserdata({
+                username: user.displayName,
+                email: user.email,
+                profile_picture: user.photoURL,
+                uid: user.uid,
+                isAdmin: false,
+              })
+  
+              } catch (error) {
+                console.log(error);
+              }
             }
-
-            
-            
-
             router.push("/")
 
 

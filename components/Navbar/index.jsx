@@ -4,7 +4,19 @@ import Image from "next/image";
 import { getAuth, onAuthStateChanged, signOut, auth } from "firebase/auth";
 import getLoginState from "../../utils/loginState";
 
+
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "./../../state/index";
+
 function Navbar({ cart, auth }) {
+
+  const data = useSelector((state) => state.userData);
+  const dispatch = useDispatch();
+  const { setUserdata } = bindActionCreators(actionCreators, dispatch);
+
+
+
   const handleSignOut = () => {
     const auth = getAuth();
     signOut(auth)
@@ -21,8 +33,18 @@ function Navbar({ cart, auth }) {
   const stateObj = getLoginState(auth);
   useEffect(() => {
     setIsLoggedIn(stateObj.signIn);
+    setUserdata({
+      username: stateObj.displayName,
+      email: stateObj.email,
+      profile_picture: stateObj.photoURL,
+      uid: stateObj.uid,
+      isAdmin: false,
+    }),
+    console.log(data);
   }, [stateObj]);
   // console.log("user state" ,stateObj);
+  
+
 
   return (
     <header className="text-gray-400 bg-orange-100 body-font shadow-lg">
@@ -68,7 +90,7 @@ function Navbar({ cart, auth }) {
             Sign Out
           </p>
         ) : (
-          <Link href="userAuth/sign-up">
+          <Link href="/userAuth/sign-up">
             <a className="inline-flex items-center bg-orange-800 text-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
               Login
               <svg
