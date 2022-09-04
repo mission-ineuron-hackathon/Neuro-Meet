@@ -51,7 +51,7 @@ function Navbar({ cart, auth }) {
 
 
   return (
-    <header className="text-gray-400 bg-orange-100 body-font shadow-lg">
+    <header className="text-gray-400 bg-[#FFFFFF] body-font shadow-lg">
      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <Link href="/">
           <a className="flex title-font font-medium items-center text-black mb-4 md:mb-0">

@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
       <div className="max-w-[1250px] mx-auto">
         <Component db={db} auth={auth} {...pageProps} />
       </div>
-      <Footer/>
+      
       </Provider>
     </>
   );
